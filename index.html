@@ -47,7 +47,8 @@
     <div class="general_students"></div>
     <!-- template start -->
     <template id="template_template">
-      <div id="template">
+      <div class="template">
+        <div class="popup">sdf</div>
         <div id="template_left">
           <div class="student_picture">
             <img
@@ -55,15 +56,16 @@
               src="imgStudents/brocklehurst_m.png"
             />
           </div>
-          <button class="student_button">More</button>
+          <!-- <button id="student_button">More</button> -->
+          <button>Toggle hidden</button>
         </div>
         <div class="template_data">
           <div class="student_name">Name</div>
           <div class="student_smol" id="name">Debbies</div>
           <div class="student_surname">Surname</div>
           <div class="student_smol" id="surname">Brown</div>
-          <div class="student_nickname">Nickname</div>
-          <div class="student_smol" id="nickname">bibi</div>
+          <div class="student_nickname"></div>
+          <div class="student_smol" id="nickname"></div>
         </div>
         <div id="house_color"></div>
       </div>
@@ -71,4 +73,9 @@
     <!-- template end -->
   </body>
   <script src="script.js"></script>
+  <script>
+    function toggle() {
+      document.getElementById("popup").classList.add("hidden");
+    }
+  </script>
 </html>
