@@ -1,0 +1,153 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap");
+
+/* ?house colors */
+:root {
+  --color-Gryffindor: linear-gradient(
+    153deg,
+    rgba(116, 0, 1) 20%,
+    rgba(211, 166, 37) 90%
+  );
+  --color-Slytherin: linear-gradient(
+    153deg,
+    rgba(26, 71, 42) 50%,
+    rgba(93, 93, 93) 90%
+  );
+  --color-Hufflepuff: linear-gradient(
+    153deg,
+    rgb(217, 207, 9) 0%,
+    rgba(2, 2, 2) 80%
+  );
+  --color-Ravenclaw: linear-gradient(
+    153deg,
+    rgba(14, 26, 64) 40%,
+    rgba(148, 107, 45) 90%
+  );
+}
+body {
+  font-family: "Poppins";
+  background-color: rgb(244, 244, 244);
+  color: rgb(0, 0, 0);
+  /* margin: 0%; */
+}
+/* HEADER START */
+header {
+  display: flex;
+  justify-content: space-between;
+  background-color: black;
+  padding: 1%;
+  font-size: 25px;
+  height: 100px;
+  margin: -8px;
+}
+#logo {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  color: rgb(255, 255, 255);
+  margin-left: 3%;
+}
+#logo_image {
+  /* display: block; */
+  background-image: url(imgWebsite/hogwarts_logo.png);
+  height: 10vh;
+  width: 70px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-top: 5%;
+}
+#header_text {
+  color: rgb(255, 255, 255);
+  justify-self: end;
+  margin-right: 3%;
+}
+#logo_text {
+  text-align: center;
+}
+#logo_text_2 {
+  font-size: 20px;
+}
+/* HEADER END */
+/* TOP SEARCH START */
+
+#top_search {
+  display: flex;
+  margin-top: 8vh;
+  gap: 5vw;
+  margin-left: 5%;
+}
+#search_sort {
+  display: flex;
+  gap: 1vw;
+}
+/* #filter {
+  background-color: rgb(28, 35, 28);
+  color: aliceblue;
+} */
+#search_bar {
+  background-color: rgb(60, 75, 60);
+}
+
+/* TOP SEARCH END */
+/* TEMPLATE START */
+
+.general_students {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+
+  justify-items: center;
+  gap: 20px 10px;
+  padding: 5%;
+}
+#template {
+  display: grid;
+  grid-template-columns: 50% 40% 10%;
+  border-right: 3px solid black;
+  border-left: 3px solid black;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  border-radius: 5vw;
+  width: 300px;
+  height: 22vh;
+
+  overflow: hidden;
+}
+#template_left {
+  display: grid;
+  grid-template-rows: 75% 25%;
+  justify-items: center;
+  align-items: center;
+}
+#student_picture2 {
+  margin-top: 15%;
+}
+
+.template_data {
+  margin-left: 5%;
+  margin-top: 8%;
+}
+.student_hogwarts {
+  font-size: 25px;
+}
+.student_smol {
+  font-size: small;
+  margin-top: -5px;
+  margin-bottom: 3%;
+  font-weight: 200;
+}
+#house_color {
+  background-image: var(--color-Slytherin);
+}
+#house_color2 {
+  background-image: var(--color-Gryffindor);
+}
+#house_color3 {
+  background-image: var(--color-Hufflepuff);
+}
+#house_color4 {
+  background-image: var(--color-Ravenclaw);
+}
+
+/* ? general ones */
+.hidden {
+  visibility: hidden;
+}

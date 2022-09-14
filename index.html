@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <div id="logo">
+        <div id="logo_image"></div>
+        <div id="logo_text">
+          Hogwarts <br /><span id="logo_text_2">School</span>
+        </div>
+      </div>
+      <div id="header_text">Student Data <br />Base System</div>
+    </header>
+
+    <div id="top_search">
+      <select name="Filter" placeholder="Filter" id="filter">
+        <option value="all">All</option>
+        <option value="girls">Girls</option>
+        <option value="boys">Boys</option>
+        <option value="slytherin">Slytherin</option>
+        <option value="gryffindor">Gryffindor</option>
+      </select>
+      <div id="search_sort">
+        <select name="Sort" id="sort">
+          <option value="name">Name</option>
+          <option value="surname">surname</option>
+          <option value="house">Surname</option>
+          <option value="gender">Gender</option>
+        </select>
+        <div class="hidden" id="arrowUp">↑</div>
+        <div class="" id="arrowDown">↑</div>
+      </div>
+
+      <input
+        type="text"
+        placeholder=" Search for..."
+        name="search_bar"
+        id="search_bar"
+      />
+    </div>
+    <div class="general_students"></div>
+    <!-- template start -->
+    <template id="template_template">
+      <div id="template">
+        <div id="template_left">
+          <div class="student_picture">
+            <img
+              class="student_picture2"
+              src="imgStudents/brocklehurst_m.png"
+            />
+          </div>
+          <button class="student_button">More</button>
+        </div>
+        <div class="template_data">
+          <div class="student_name">Name</div>
+          <div class="student_smol" id="name">Debbies</div>
+          <div class="student_surname">Surname</div>
+          <div class="student_smol" id="surname">Brown</div>
+          <div class="student_nickname">Nickname</div>
+          <div class="student_smol" id="nickname">bibi</div>
+        </div>
+        <div id="house_color"></div>
+      </div>
+    </template>
+    <!-- template end -->
+  </body>
+  <script src="script.js"></script>
+</html>
