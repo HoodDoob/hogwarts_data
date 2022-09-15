@@ -1,6 +1,6 @@
 "use strict";
 const url = "https://petlatkea.dk/2021/hogwarts/students.json";
-window.addEventListener("DOMContentLoaded", start);
+// window.addEventListener("DOMContentLoaded", start);
 
 start();
 
@@ -17,22 +17,15 @@ const Student = {
 };
 let allStudents = [];
 let index = 0;
-async function start() {
+function start() {
+  document.querySelector("#logo_image").addEventListener("click", addButtons);
+  document.querySelector("#logo_text").addEventListener("click", checkStudents);
+
   document.querySelector("#filter").addEventListener("change", filter);
+
   // console.log("ready");
 
-  await loadJSON();
-}
-function addButtons(student) {
-  // console.log(allStudents);
-  document
-    .querySelector(`button${student.index}`)
-    .addEventListener("click", test1);
-
-  // document.querySelector(`#popup${actor.index}`).classList.toggle("hidden");
-}
-function test1() {
-  console.log("clicked");
+  loadJSON();
 }
 // MODEL    MODEL     MODEL     MODEL
 // MODEL    MODEL     MODEL     MODEL
@@ -41,8 +34,11 @@ async function loadJSON() {
   const response = await fetch(url);
   const jsonData = await response.json();
   // when loaded, prepare data objects
-  await prepareObjects(jsonData);
+  prepareObjects(jsonData);
   // addButtons(allStudents);
+}
+function checkStudents() {
+  console.log(allStudents);
 }
 
 function prepareObjects(jsonData) {
@@ -92,7 +88,6 @@ function prepareObject(jsonObject) {
   student.gender = gender;
   student.lastName = studentLastName;
   student.middleName = middleName;
-  // student.nickName = nickName;
   student.house = house;
   student.imageName = imageName;
   student.index = index++;
@@ -104,36 +99,40 @@ function prepareObject(jsonObject) {
 function popUp() {
   console.log("pop up");
 }
+
 function filter() {
   let filterValue = document.querySelector("#filter").value;
-  if (filterValue == "boys") {
-    console.log("we're filtering boyz");
-    let onlyBoys = allStudents.filter(isBoy);
-    displayList(onlyBoys);
-  } else if (filterValue == "girls") {
-    console.log("we're filtering girlz");
-    let onlyGirls = allStudents.filter(isGirl);
-    displayList(onlyGirls);
+  let list = allStudents.filter(studentFilter);
+  function studentFilter(student) {
+    if (student.gender == filterValue) {
+      return true;
+    } else if (student.house == filterValue) {
+      return true;
+    } else if (filterValue == "all") {
+      loadJSON();
+    } else {
+      return false;
+    }
   }
-  console.log(filterValue);
+  displayList(list);
 }
 
-function isGirl(student) {
-  if (student.gender === "girl") {
-    return true;
-  } else {
-    return false;
-  }
-}
-function isBoy(student) {
-  if (student.gender === "boy") {
-    return true;
-  } else {
-    return false;
-  }
-}
 function capitalize(str) {
   if (str != "") return str[0].toUpperCase() + str.substring(1).toLowerCase();
+}
+function addButtons() {
+  console.log("działamy");
+  allStudents.forEach((student) =>
+    document
+      .querySelector(`button#index${student.index}`)
+      .addEventListener("click", () => {
+        document
+          .querySelector(`.popup#index${student.index}`)
+          .classList.toggle("hidden");
+      })
+  );
+
+  // document.querySelector(`#popup${actor.index}`).classList.toggle("hidden");
 }
 
 // VIEW     VIEW     VIEW     VIEW
@@ -141,11 +140,22 @@ function capitalize(str) {
 
 async function displayList(allStudents) {
   // clear the list
-  // document.querySelector(".general_students").innerHTML = "";
+  document.querySelector(".general_students").innerHTML = "";
   // build a new list
-  await allStudents.forEach((student) => (student.index = index++));
-  await allStudents.forEach(displayStudents);
-  allStudents.forEach(addButtons);
+  allStudents.forEach((student) => (student.index = index++));
+  allStudents.forEach(displayStudents);
+  // addButtons(allStudents);
+}
+function houseToColor(house) {
+  if (house == "Gryffindor") {
+    return "var(--color-Gryffindor)";
+  } else if (house == "Slytherin") {
+    return "var(--color-Slytherin)";
+  } else if (house == "Hufflepuff") {
+    return "var(--color-Hufflepuff)";
+  } else {
+    return "var(--color-Ravenclaw)";
+  }
 }
 
 function displayStudents(student) {
@@ -170,8 +180,14 @@ function displayStudents(student) {
     ".student_picture2"
   ).src = `imgStudents/${student.imageName}`;
   // adding unique ID to each template clone
-  clone.querySelector("button").setAttribute("id", `index${student.index}`);
+  clone
+    .querySelector("#hide_popup")
+    .setAttribute("id", `index${student.index}`);
   clone.querySelector(".popup").setAttribute("id", `index${student.index}`);
+  clone.querySelector("#house_color").style.backgroundImage = houseToColor(
+    student.house
+  );
+
   // clone
   // append clone to list
   document.querySelector(".general_students").appendChild(clone);

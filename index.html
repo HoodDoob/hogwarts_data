@@ -21,8 +21,8 @@
     <div id="top_search">
       <select name="Filter" placeholder="Filter" id="filter">
         <option value="all">All</option>
-        <option value="girls">Girls</option>
-        <option value="boys">Boys</option>
+        <option value="girl">Girls</option>
+        <option value="boy">Boys</option>
         <option value="slytherin">Slytherin</option>
         <option value="gryffindor">Gryffindor</option>
       </select>
@@ -48,7 +48,30 @@
     <!-- template start -->
     <template id="template_template">
       <div class="template">
-        <div class="popup">sdf</div>
+        <div class="popup hidden">
+          <div class="popup_background" id="popup_data">
+            <div id="popup_wrapper1">
+              <div>
+                <div class="student_house">House</div>
+                <div class="student_smol" id="house">Slytherin</div>
+                <div class="student_blood">Blood Status</div>
+                <div class="student_smol" id="blood">0 Rh+</div>
+              </div>
+              <div>
+                <div class="student_house">House</div>
+                <div class="student_smol" id="house">Slytherin</div>
+                <div class="student_blood">Blood Status</div>
+                <div class="student_smol" id="blood">0 Rh+</div>
+              </div>
+            </div>
+            <div id="popup_buttons">
+              <button>Expell</button>
+              <button>Prefect</button>
+              <button>Voldemort</button>
+            </div>
+          </div>
+          <div id="pop_house"></div>
+        </div>
         <div id="template_left">
           <div class="student_picture">
             <img
@@ -56,8 +79,7 @@
               src="imgStudents/brocklehurst_m.png"
             />
           </div>
-          <!-- <button id="student_button">More</button> -->
-          <button>Toggle hidden</button>
+          <button id="hide_popup">Toggle hidden</button>
         </div>
         <div class="template_data">
           <div class="student_name">Name</div>
