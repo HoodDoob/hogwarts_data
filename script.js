@@ -12,7 +12,7 @@ const Student = {
   house: "",
   gender: "",
   imageName: "",
-  prefect: "false",
+  prefect: false,
 };
 let allStudents = [];
 let filteredList;
@@ -23,7 +23,7 @@ function start() {
   // document.querySelector("#logo_image").addEventListener("click", addButtons);
   document.querySelector("#logo_text").addEventListener("click", checkStudents);
 
-  document.querySelector("#filter").addEventListener("change", filter);
+  document.querySelector("#filter").addEventListener("change", filterStudents);
 
   // console.log("ready");
 
@@ -100,20 +100,43 @@ function prepareObjects(jsonData) {
   // console.table(allStudents);
 
   // TODO: This might not be the function we want to call first
-  filter(allStudents);
+  filterStudents(allStudents);
 }
 
-function filter(studentTest) {
-  // let filterValue = document.querySelector("#filter").value;
+function filterStudents() {
+  let filterValue = document.querySelector("#filter").value;
+  // filter value boy
+  filteredList = allStudents.filter(studentFilter);
 
-  filteredList = allStudents;
-
-  if (studentTest === "boy") {
-    displayList(filteredList);
-  } else {
-    displayList(filteredList);
+  function studentFilter(student) {
+    if (student.gender === filterValue) {
+      return true;
+    } else if (student.house === filterValue) {
+      return true;
+    } else if (filterValue === "all") {
+      return true;
+    } else {
+      return false;
+    }
   }
+  displayList(filteredList);
 }
+// function filter() {
+//   let filterValue = document.querySelector("#filter").value;
+//   let list = allStudents.filter(studentFilter);
+//   function studentFilter(student) {
+//     if (student.gender == filterValue) {
+//       return true;
+//     } else if (student.house == filterValue) {
+//       return true;
+//     } else if (filterValue == "all") {
+//       loadJSON();
+//     } else {
+//       return false;
+//     }
+//   }
+//   displayList(list);
+// }
 
 function capitalize(str) {
   if (str != "") return str[0].toUpperCase() + str.substring(1).toLowerCase();
@@ -136,7 +159,7 @@ function addButtons() {
 // VIEW     VIEW     VIEW     VIEW
 // VIEW     VIEW     VIEW     VIEW
 
-async function displayList(students) {
+function displayList(students) {
   // clear the list
   document.querySelector(".general_students").innerHTML = "";
   // build a new list
@@ -176,15 +199,26 @@ function displayStudents(student) {
   }
   clone.querySelector("#hide_popup").addEventListener("click", setPopup);
 
+  if (student.prefect === false) {
+    clone.querySelector("#prefect").innerHTML = "No";
+  } else {
+    clone.querySelector("#prefect").innerHTML = "Yes";
+  }
+  // ! stolen code from Emma
+  clone
+    .querySelector(`[data-field="star"]`)
+    .addEventListener("click", (event) => {
+      animal.star = !animal.star;
+      if (animal.star) {
+        event.target.textContent = "⭐";
+      } else {
+        event.target.textContent = "☆";
+      }
+    });
+  // ! end of stolen code from Emma
   clone
     .querySelector("#hide_popup")
     .setAttribute("id", `index${student.index}`);
-
-  //   .
-
-  // function setPopup() {
-  //   // displayList(filteredList);
-  // }
 
   clone.querySelector(
     ".student_picture2"
