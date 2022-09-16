@@ -205,16 +205,16 @@ function displayStudents(student) {
     clone.querySelector("#prefect").innerHTML = "Yes";
   }
   // ! stolen code from Emma
-  clone
-    .querySelector(`[data-field="star"]`)
-    .addEventListener("click", (event) => {
-      animal.star = !animal.star;
-      if (animal.star) {
-        event.target.textContent = "⭐";
-      } else {
-        event.target.textContent = "☆";
-      }
-    });
+  clone.querySelector("#btPrefect").addEventListener("click", (event) => {
+    student.prefect = !student.prefect;
+    if (student.prefect) {
+      event.target.textContent = "⭐";
+      console.log(allStudents);
+    } else {
+      event.target.textContent = "☆";
+      console.log(allStudents);
+    }
+  });
   // ! end of stolen code from Emma
   clone
     .querySelector("#hide_popup")
@@ -241,4 +241,7 @@ function setPopup(event) {
   // let testIndex = filteredList;
   document.querySelector(`.popup#${testIndex}`).classList.toggle("hidden");
   console.log(testIndex);
+}
+function setPrefect(event) {
+  let testPrefect = event.target.id;
 }
