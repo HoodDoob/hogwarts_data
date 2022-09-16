@@ -140,9 +140,6 @@ async function displayList(students) {
   // clear the list
   document.querySelector(".general_students").innerHTML = "";
   // build a new list
-  await students.forEach((student) => (student.index = 0));
-
-  students.forEach((student) => (student.index = index++));
   students.forEach(displayStudents);
   // addButtons(allStudents);
 }
@@ -177,9 +174,7 @@ function displayStudents(student) {
     clone.querySelector(".student_nickname").innerHTML = "Nickname";
     clone.querySelector("#nickname").textContent = student.nickName;
   }
-  clone
-    .querySelector("#hide_popup")
-    .addEventListener("click", setPopup(`${student.index}`));
+  clone.querySelector("#hide_popup").addEventListener("click", setPopup);
 
   clone
     .querySelector("#hide_popup")
@@ -218,5 +213,5 @@ function setPopup() {
   // document
   //   .querySelector(`.popup#index${student.index}`)
   //   .classList.add("hidden");
-  console.log("hi");
+  console.log();
 }
