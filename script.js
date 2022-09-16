@@ -178,18 +178,10 @@ function displayStudents(student) {
 
   clone
     .querySelector("#hide_popup")
-    .setAttribute("id", `index ${student.index}`);
+    .setAttribute("id", `index${student.index}`);
 
-  // clone
-  //   .querySelector(`#index ${student.index}`)
   //   .
 
-  // function setPopup() {
-  //   clone
-  //     .querySelector(`.popup#index${student.index}`)
-  //     .classList.toggle("hidden");
-  //   displayList(filteredList);
-  // }
   // function setPopup() {
   //   // displayList(filteredList);
   // }
@@ -209,9 +201,10 @@ function displayStudents(student) {
   document.querySelector(".general_students").appendChild(clone);
   //   });
 }
-function setPopup() {
-  // document
-  //   .querySelector(`.popup#index${student.index}`)
-  //   .classList.add("hidden");
-  console.log();
+
+function setPopup(event) {
+  let testIndex = event.target.id;
+  // let testIndex = filteredList;
+  document.querySelector(`.popup#${testIndex}`).classList.toggle("hidden");
+  console.log(testIndex);
 }
