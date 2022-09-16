@@ -197,35 +197,31 @@ function displayStudents(student) {
     clone.querySelector(".student_nickname").innerHTML = "Nickname";
     clone.querySelector("#nickname").textContent = student.nickName;
   }
-  clone.querySelector("#hide_popup").addEventListener("click", setPopup);
+  clone.querySelector(".hide_popup").addEventListener("click", setPopup);
+  clone.querySelector(".btPrefect").addEventListener("click", setPrefect);
 
-  if (student.prefect === false) {
+  if (student.prefect == false) {
     clone.querySelector("#prefect").innerHTML = "No";
   } else {
     clone.querySelector("#prefect").innerHTML = "Yes";
   }
   // ! stolen code from Emma
-  clone.querySelector("#btPrefect").addEventListener("click", (event) => {
-    student.prefect = !student.prefect;
-    if (student.prefect) {
-      event.target.textContent = "⭐";
-      console.log(allStudents);
-    } else {
-      event.target.textContent = "☆";
-      console.log(allStudents);
-    }
-  });
+
   // ! end of stolen code from Emma
+  // ?adding id to a template
+  clone.querySelector(".template").setAttribute("id", `index${student.index}`);
+
+  // ? adding id to all buttons
   clone
-    .querySelector("#hide_popup")
+    .querySelector(".hide_popup")
     .setAttribute("id", `index${student.index}`);
+  clone.querySelector(".btPrefect").setAttribute("id", `index${student.index}`);
 
   clone.querySelector(
     ".student_picture2"
   ).src = `imgStudents/${student.imageName}`;
   // adding unique ID to each template clone
 
-  clone.querySelector(".popup").setAttribute("id", `index${student.index}`);
   clone.querySelector("#house_color").style.backgroundImage = houseToColor(
     student.house
   );
@@ -234,14 +230,30 @@ function displayStudents(student) {
   //     // append clone to list
   document.querySelector(".general_students").appendChild(clone);
   //   });
+  function setPrefect() {
+    student.prefect != student.prefect;
+    console.log(student.prefect);
+
+    if (student.prefect == false) {
+      console.log("hi");
+      console.log(student.prefect);
+
+      document.querySelector(`#index${student.index}  #prefect `).textContent =
+        "No";
+    } else {
+      console.log("ho");
+      console.log(student.prefect);
+
+      document.querySelector(`#index${student.index}  #prefect `).textContent =
+        "Yes";
+    }
+  }
 }
 
 function setPopup(event) {
   let testIndex = event.target.id;
+  document.querySelector(`#${testIndex}  .popup `).classList.toggle("hidden");
+
   // let testIndex = filteredList;
-  document.querySelector(`.popup#${testIndex}`).classList.toggle("hidden");
-  console.log(testIndex);
-}
-function setPrefect(event) {
-  let testPrefect = event.target.id;
+  // console.log(testIndex);
 }
