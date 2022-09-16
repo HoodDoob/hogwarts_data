@@ -51,23 +51,25 @@
         <div class="popup hidden">
           <div class="popup_background" id="popup_data">
             <div id="popup_wrapper1">
-              <div>
+              <div id="popup_left">
                 <div class="student_house">House</div>
-                <div class="student_smol" id="house">Slytherin</div>
+                <div class="student_smol2" id="house">Slytherin</div>
                 <div class="student_blood">Blood Status</div>
-                <div class="student_smol" id="blood">0 Rh+</div>
+                <div class="student_smol2" id="blood">0 Rh+</div>
               </div>
               <div>
-                <div class="student_house">House</div>
-                <div class="student_smol" id="house">Slytherin</div>
-                <div class="student_blood">Blood Status</div>
-                <div class="student_smol" id="blood">0 Rh+</div>
+                <div class="student_prefect">Prefect</div>
+                <div class="student_smol2" id="Prefect">Ye</div>
+                <div class="student_squad">Inquisitorial Squad</div>
+                <div class="student_smol2" id="squad">Ye</div>
+                <div class="student_expelled">Expelled</div>
+                <div class="student_smol2" id="expelled">Nay</div>
               </div>
             </div>
             <div id="popup_buttons">
-              <button>Expell</button>
-              <button>Prefect</button>
-              <button>Voldemort</button>
+              <button id="btExpell">Expell</button>
+              <button id="btPrefect">Prefect</button>
+              <button id="btSquad">Squad</button>
             </div>
           </div>
           <div id="pop_house"></div>
@@ -95,9 +97,9 @@
     <!-- template end -->
   </body>
   <script src="script.js"></script>
-  <script>
+  <!-- <script>
     function toggle() {
       document.getElementById("popup").classList.add("hidden");
     }
-  </script>
+  </script> -->
 </html>

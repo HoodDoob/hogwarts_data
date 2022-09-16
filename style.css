@@ -172,11 +172,21 @@ header {
 #popup_wrapper1 {
   display: grid;
   grid-template-columns: 50% 50%;
+  font-size: 13px;
 }
 #popup_buttons {
   display: flex;
   justify-content: space-evenly;
   margin-bottom: 2%;
+}
+.student_smol2 {
+  font-size: 11px;
+  margin-top: -5px;
+  font-weight: 200;
+}
+#popup_left {
+  padding-left: 10%;
+  padding-top: 10%;
 }
 
 /* display: grid;

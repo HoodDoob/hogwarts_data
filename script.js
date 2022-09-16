@@ -1,8 +1,6 @@
 "use strict";
 const url = "https://petlatkea.dk/2021/hogwarts/students.json";
-// window.addEventListener("DOMContentLoaded", start);
-
-start();
+window.addEventListener("DOMContentLoaded", start);
 
 const Student = {
   index: "",
@@ -14,11 +12,15 @@ const Student = {
   house: "",
   gender: "",
   imageName: "",
+  prefect: "false",
 };
 let allStudents = [];
+let filteredList;
 let index = 0;
+start();
+
 function start() {
-  document.querySelector("#logo_image").addEventListener("click", addButtons);
+  // document.querySelector("#logo_image").addEventListener("click", addButtons);
   document.querySelector("#logo_text").addEventListener("click", checkStudents);
 
   document.querySelector("#filter").addEventListener("change", filter);
@@ -41,13 +43,6 @@ function checkStudents() {
   console.log(allStudents);
 }
 
-function prepareObjects(jsonData) {
-  allStudents = jsonData.map(prepareObject);
-  console.table(allStudents);
-
-  // TODO: This might not be the function we want to call first
-  displayList(allStudents);
-}
 function prepareObject(jsonObject) {
   const student = Object.create(Student);
   // extrat data from json Object
@@ -100,21 +95,24 @@ function popUp() {
   console.log("pop up");
 }
 
-function filter() {
-  let filterValue = document.querySelector("#filter").value;
-  let list = allStudents.filter(studentFilter);
-  function studentFilter(student) {
-    if (student.gender == filterValue) {
-      return true;
-    } else if (student.house == filterValue) {
-      return true;
-    } else if (filterValue == "all") {
-      loadJSON();
-    } else {
-      return false;
-    }
+function prepareObjects(jsonData) {
+  allStudents = jsonData.map(prepareObject);
+  // console.table(allStudents);
+
+  // TODO: This might not be the function we want to call first
+  filter(allStudents);
+}
+
+function filter(studentTest) {
+  // let filterValue = document.querySelector("#filter").value;
+
+  filteredList = allStudents;
+
+  if (studentTest === "boy") {
+    displayList(filteredList);
+  } else {
+    displayList(filteredList);
   }
-  displayList(list);
 }
 
 function capitalize(str) {
@@ -138,12 +136,14 @@ function addButtons() {
 // VIEW     VIEW     VIEW     VIEW
 // VIEW     VIEW     VIEW     VIEW
 
-async function displayList(allStudents) {
+async function displayList(students) {
   // clear the list
   document.querySelector(".general_students").innerHTML = "";
   // build a new list
-  allStudents.forEach((student) => (student.index = index++));
-  allStudents.forEach(displayStudents);
+  await students.forEach((student) => (student.index = 0));
+
+  students.forEach((student) => (student.index = index++));
+  students.forEach(displayStudents);
   // addButtons(allStudents);
 }
 function houseToColor(house) {
@@ -171,24 +171,52 @@ function displayStudents(student) {
   }
 
   clone.querySelector("#surname").textContent = student.lastName;
+  clone.querySelector("#house").textContent = student.house;
+
   if (student.nickName != undefined) {
     clone.querySelector(".student_nickname").innerHTML = "Nickname";
     clone.querySelector("#nickname").textContent = student.nickName;
   }
+  clone
+    .querySelector("#hide_popup")
+    .addEventListener("click", setPopup(`${student.index}`));
+
+  clone
+    .querySelector("#hide_popup")
+    .setAttribute("id", `index ${student.index}`);
+
+  // clone
+  //   .querySelector(`#index ${student.index}`)
+  //   .
+
+  // function setPopup() {
+  //   clone
+  //     .querySelector(`.popup#index${student.index}`)
+  //     .classList.toggle("hidden");
+  //   displayList(filteredList);
+  // }
+  // function setPopup() {
+  //   // displayList(filteredList);
+  // }
 
   clone.querySelector(
     ".student_picture2"
   ).src = `imgStudents/${student.imageName}`;
   // adding unique ID to each template clone
-  clone
-    .querySelector("#hide_popup")
-    .setAttribute("id", `index${student.index}`);
+
   clone.querySelector(".popup").setAttribute("id", `index${student.index}`);
   clone.querySelector("#house_color").style.backgroundImage = houseToColor(
     student.house
   );
 
-  // clone
-  // append clone to list
+  //     // clone
+  //     // append clone to list
   document.querySelector(".general_students").appendChild(clone);
+  //   });
+}
+function setPopup() {
+  // document
+  //   .querySelector(`.popup#index${student.index}`)
+  //   .classList.add("hidden");
+  console.log("hi");
 }
