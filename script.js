@@ -16,14 +16,26 @@ const Student = {
   expelled: false,
   squad: false,
 };
+// test array
+let arraySlytherin = [];
+let arrayGryffindor = [];
+let arrayHufflepuff = [];
+let arrayRavenclaw = [];
 let allStudents = [];
 let expelledArray = [];
 let filteredList = [];
 let index = 1;
-
+let sortDir = true;
 // start();
 
 function start() {
+  document
+    .querySelector("#show_expelled")
+    .addEventListener("click", showExpelled);
+  document.querySelector("#sort").addEventListener("change", sortingFunction);
+  document
+    .querySelector("#sort_arrow")
+    .addEventListener("click", changeSorting);
   document.querySelector("#logo").addEventListener("click", consoleLogg);
 
   document.querySelector("#filter").addEventListener("change", filterStudents);
@@ -83,9 +95,10 @@ function prepareObject(jsonObject) {
   } else {
     imageName = `${studentLastName.toLowerCase()}_${studentName[0]}.png`;
   }
-
   // !here the blood status will be added
-
+  if (newStudentName == undefined) {
+    newStudentName = "undefined";
+  }
   // put cleaned data into newly created object
   student.firstName = newStudentName;
   student.gender = gender;
@@ -110,6 +123,66 @@ function prepareObjects(jsonData) {
   // TODO: This might not be the function we want to call first
   filterStudents(allStudents);
 }
+function showExpelled() {
+  displayList(expelledArray);
+}
+function changeSorting() {
+  sortDir = !sortDir;
+  if (sortDir == true) {
+    document.querySelector("#sort_arrow").textContent = "↑";
+  } else {
+    document.querySelector("#sort_arrow").textContent = "↓";
+  }
+  sortingFunction();
+}
+
+function sortingFunction() {
+  let sortingValue = document.querySelector("#sort").value;
+  let sortingDir = document.querySelector("#sort_arrow").dataset;
+  console.log(sortingDir);
+  if (sortingValue == "firstname") {
+    if (sortDir == true) {
+      filteredList = filteredList.sort(function (a, b) {
+        return a.firstName.localeCompare(b.firstName);
+      });
+    } else {
+      filteredList = filteredList.sort(function (a, b) {
+        return b.firstName.localeCompare(a.firstName);
+      });
+    }
+  } else if (sortingValue == "surname") {
+    if (sortDir == true) {
+      filteredList = filteredList.sort(function (a, b) {
+        return a.lastName.localeCompare(b.lastName);
+      });
+    } else {
+      filteredList = filteredList.sort(function (a, b) {
+        return b.lastName.localeCompare(a.lastName);
+      });
+    }
+  } else if (sortingValue == "house") {
+    if (sortDir == true) {
+      filteredList = filteredList.sort(function (a, b) {
+        return a.house.localeCompare(b.house);
+      });
+    } else {
+      filteredList = filteredList.sort(function (a, b) {
+        return b.house.localeCompare(a.house);
+      });
+    }
+  } else if (sortingValue == "gender") {
+    if (sortDir == true) {
+      filteredList = filteredList.sort(function (a, b) {
+        return a.gender.localeCompare(b.gender);
+      });
+    } else {
+      filteredList = filteredList.sort(function (a, b) {
+        return b.gender.localeCompare(a.gender);
+      });
+    }
+  }
+  displayList(filteredList);
+}
 
 function filterStudents() {
   let filterValue = document.querySelector("#filter").value;
@@ -118,16 +191,14 @@ function filterStudents() {
 
   function studentFilter(student) {
     console.log("we're in filter");
-    if (student.gender === filterValue) {
+    if (student.expelled == true) {
+      return false;
+    } else if (student.gender === filterValue) {
       return true;
     } else if (student.house === filterValue) {
       return true;
     } else if (filterValue === "all") {
-      if (student.expelled == true) {
-        return false;
-      } else {
-        return true;
-      }
+      return true;
     } else if (filterValue === "prefect") {
       if (student.prefect === true) {
         return true;
@@ -136,13 +207,7 @@ function filterStudents() {
       }
     }
   }
-  if (filterValue === "expelled") {
-    // console.log(expelledArray);
-    displayList(expelledArray);
-  } else {
-    // console.log(filteredList);
-    displayList(filteredList);
-  }
+  displayList(filteredList);
 }
 function capitalize(str) {
   if (str != "") return str[0].toUpperCase() + str.substring(1).toLowerCase();
@@ -164,48 +229,34 @@ function addButtons() {
 // ! search bar teraz działamy jazda
 function searchFunction() {
   console.log("searching");
-  const searchValue = document.querySelector("#search_bar").value;
+  let searchValue = document.querySelector("#search_bar").value;
   if (searchValue != "") {
+    // let searchValueString = capitalize(searchValue);
     let searchValueString = capitalize(searchValue);
-    searchFilter(searchValueString);
+    searchFilter(searchValue, searchValueString);
   } else {
     displayList(filteredList);
   }
-  // przelot przez filtered list
 }
-function searchFilter(searchValueString) {
+
+function searchFilter(searchValue, searchValueString) {
   let searchArray = [];
-  // console.log(filteredList);
-  filteredList.forEach(filterSearch);
-}
-function filterSearch(student) {
-  if (
-    student.firstName.includes(searchValueString)
-    //  ||
-    // student.lastName.includes(searchValueString)
-    // student.middleName.includes(searchValue)
-  ) {
-    searchArray.push(student);
+  filteredList.forEach(testFunction);
+  function testFunction(student) {
+    if (
+      student.firstName.includes(searchValue) ||
+      student.lastName.includes(searchValue)
+    ) {
+      searchArray.push(student);
+    } else if (
+      student.firstName.includes(searchValueString) ||
+      student.lastName.includes(searchValueString)
+    ) {
+      searchArray.push(student);
+    }
+    displayList(searchArray);
   }
-  displayList(searchArray);
 }
-
-//? console.log(searchValue);
-
-//  ? const searchArray = [];
-
-//   ?allStudents.forEach((student) => {
-//     if (
-//       student.firstName.includes(searchValueString) ||
-//       student.middleName.includes(searchValueString) ||
-//       student.lastName.includes(searchValueString)
-//     ) {
-//       searchArray.push(student);
-//     }
-//   });
-
-// ? displayList(searchResult);
-
 // VIEW     VIEW     VIEW     VIEW
 // VIEW     VIEW     VIEW     VIEW
 
@@ -264,30 +315,80 @@ function displayStudents(student) {
   function addPrefect() {
     student.prefect = !student.prefect;
     if (student.prefect) {
+      if (student.house == "Gryffindor") {
+        arrayGryffindor.push(student);
+        killPrefects(arrayGryffindor);
+      } else if (student.house == "Slytherin") {
+        arraySlytherin.push(student);
+        killPrefects(arraySlytherin);
+      } else if (student.house == "Hufflepuff") {
+        arrayHufflepuff.push(student);
+        killPrefects(arrayHufflepuff);
+      } else if (student.house == "Ravenclaw") {
+        arrayRavenclaw.push(student);
+        killPrefects(arrayRavenclaw);
+      }
       document.querySelector(`#index${student.index}  #prefect `).textContent =
         "Yes";
     } else {
+      if (student.house == "Gryffindor") {
+        arrayGryffindor.splice(student);
+      } else if (student.house == "Slytherin") {
+        arraySlytherin.splice(student);
+      } else if (student.house == "Hufflepuff") {
+        arrayHufflepuff.splice(student);
+      } else if (student.house == "Ravenclaw") {
+        arrayRavenclaw.splice(student);
+      }
       document.querySelector(`#index${student.index}  #prefect `).textContent =
         "No";
     }
+    console.log(arrayGryffindor);
+    console.log(arraySlytherin);
   }
   // if (student.expelled == true) {
   //   // expelledArray.push(student);
   //   removeExpelled2(student);
   // }
+  function killPrefects(house) {
+    if (house.length == 2) {
+      // console.log(arrayGryffindor);
+      // let firstFella = arrayGryffindor[0];
+      // let secondFella = arrayGryffindor[1];
+      if (house[0].gender === house[1].gender) {
+        showGenderBlock(house);
+      }
+    } else if (house.length > 2) {
+      showNumberBlock(house);
+    }
+  }
+  function showGenderBlock(house) {
+    console.log("gender is a concept");
+    house.pop();
+    // student.prefect = !student.prefect;
+    document.querySelector(`#index${student.index}  #prefect `).textContent =
+      "No";
+  }
+  function showNumberBlock(house) {
+    console.log("it's too much :(");
+    house.pop();
+    // student.prefect = !student.prefect;
+    document.querySelector(`#index${student.index}  #prefect `).textContent =
+      "No";
+  }
   function expellStudent() {
     // i add the expelled aprameter so that i can keep track of whether it's expelled
     student.expelled = true;
     expelledArray.push(student);
-    console.log(expelledArray);
-    console.log(filteredList);
+    // console.log(expelledArray);
+    // console.log(filteredList);
     removeExpelled(student);
   }
 
   function removeExpelled(student) {
-    delete filteredList[student.index - 1];
+    delete allStudents[student.index - 1];
     console.log(filteredList);
-    displayList(filteredList);
+    displayList(allStudents);
   }
 
   // ! end of stolen code from Lucas

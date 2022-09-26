@@ -28,17 +28,17 @@
         <option value="Hufflepuff">Hufflepuff</option>
         <option value="Ravenclaw">Ravenclaw</option>
         <option value="prefect">Prefect</option>
-        <option value="expelled">expelled</option>
+        <!-- <option value="expelled">expelled</option> -->
       </select>
       <div id="search_sort">
         <select name="Sort" id="sort">
-          <option value="name">Name</option>
-          <option value="surname">surname</option>
-          <option value="house">Surname</option>
+          <option value="firstname">Name</option>
+          <option value="surname">Surname</option>
+          <option value="house">House</option>
           <option value="gender">Gender</option>
         </select>
-        <div class="hidden" id="arrowUp">↑</div>
-        <div class="" id="arrowDown">↑</div>
+        <div class="" id="sort_arrow" data-sort-direction=>↑</div>
+        <!-- <div class="" id="arrowDown">↑</div> -->
       </div>
 
       <input
@@ -47,6 +47,7 @@
         name="search_bar"
         id="search_bar"
       />
+      <button id="show_expelled">Show expelled</div>
     </div>
     <div class="general_students"></div>
     <!-- template start -->

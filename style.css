@@ -79,6 +79,9 @@ header {
   display: flex;
   gap: 1vw;
 }
+#sort_arrow {
+  cursor: pointer;
+}
 /* #filter {
   background-color: rgb(28, 35, 28);
   color: aliceblue;
