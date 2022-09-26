@@ -164,8 +164,47 @@ function addButtons() {
 // ! search bar teraz działamy jazda
 function searchFunction() {
   console.log("searching");
+  const searchValue = document.querySelector("#search_bar").value;
+  if (searchValue != "") {
+    let searchValueString = capitalize(searchValue);
+    searchFilter(searchValueString);
+  } else {
+    displayList(filteredList);
+  }
   // przelot przez filtered list
 }
+function searchFilter(searchValueString) {
+  let searchArray = [];
+  // console.log(filteredList);
+  filteredList.forEach(filterSearch);
+}
+function filterSearch(student) {
+  if (
+    student.firstName.includes(searchValueString)
+    //  ||
+    // student.lastName.includes(searchValueString)
+    // student.middleName.includes(searchValue)
+  ) {
+    searchArray.push(student);
+  }
+  displayList(searchArray);
+}
+
+//? console.log(searchValue);
+
+//  ? const searchArray = [];
+
+//   ?allStudents.forEach((student) => {
+//     if (
+//       student.firstName.includes(searchValueString) ||
+//       student.middleName.includes(searchValueString) ||
+//       student.lastName.includes(searchValueString)
+//     ) {
+//       searchArray.push(student);
+//     }
+//   });
+
+// ? displayList(searchResult);
 
 // VIEW     VIEW     VIEW     VIEW
 // VIEW     VIEW     VIEW     VIEW
