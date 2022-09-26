@@ -13,17 +13,23 @@ const Student = {
   gender: "",
   imageName: "",
   prefect: false,
+  expelled: false,
+  squad: false,
 };
 let allStudents = [];
-let filteredList;
-let index = 0;
-start();
+let expelledArray = [];
+let filteredList = [];
+let index = 1;
+
+// start();
 
 function start() {
-  // document.querySelector("#logo_image").addEventListener("click", addButtons);
-  document.querySelector("#logo_text").addEventListener("click", checkStudents);
+  document.querySelector("#logo").addEventListener("click", consoleLogg);
 
   document.querySelector("#filter").addEventListener("change", filterStudents);
+  document
+    .querySelector("#search_bar")
+    .addEventListener("keyup", searchFunction);
 
   // console.log("ready");
 
@@ -39,8 +45,8 @@ async function loadJSON() {
   prepareObjects(jsonData);
   // addButtons(allStudents);
 }
-function checkStudents() {
-  console.log(allStudents);
+function consoleLogg() {
+  console.log(filteredList);
 }
 
 function prepareObject(jsonObject) {
@@ -78,6 +84,8 @@ function prepareObject(jsonObject) {
     imageName = `${studentLastName.toLowerCase()}_${studentName[0]}.png`;
   }
 
+  // !here the blood status will be added
+
   // put cleaned data into newly created object
   student.firstName = newStudentName;
   student.gender = gender;
@@ -105,39 +113,37 @@ function prepareObjects(jsonData) {
 
 function filterStudents() {
   let filterValue = document.querySelector("#filter").value;
-  // filter value boy
+
   filteredList = allStudents.filter(studentFilter);
 
   function studentFilter(student) {
+    console.log("we're in filter");
     if (student.gender === filterValue) {
       return true;
     } else if (student.house === filterValue) {
       return true;
     } else if (filterValue === "all") {
-      return true;
-    } else {
-      return false;
+      if (student.expelled == true) {
+        return false;
+      } else {
+        return true;
+      }
+    } else if (filterValue === "prefect") {
+      if (student.prefect === true) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
-  displayList(filteredList);
+  if (filterValue === "expelled") {
+    // console.log(expelledArray);
+    displayList(expelledArray);
+  } else {
+    // console.log(filteredList);
+    displayList(filteredList);
+  }
 }
-// function filter() {
-//   let filterValue = document.querySelector("#filter").value;
-//   let list = allStudents.filter(studentFilter);
-//   function studentFilter(student) {
-//     if (student.gender == filterValue) {
-//       return true;
-//     } else if (student.house == filterValue) {
-//       return true;
-//     } else if (filterValue == "all") {
-//       loadJSON();
-//     } else {
-//       return false;
-//     }
-//   }
-//   displayList(list);
-// }
-
 function capitalize(str) {
   if (str != "") return str[0].toUpperCase() + str.substring(1).toLowerCase();
 }
@@ -154,6 +160,11 @@ function addButtons() {
   );
 
   // document.querySelector(`#popup${actor.index}`).classList.toggle("hidden");
+}
+// ! search bar teraz działamy jazda
+function searchFunction() {
+  console.log("searching");
+  // przelot przez filtered list
 }
 
 // VIEW     VIEW     VIEW     VIEW
@@ -198,16 +209,49 @@ function displayStudents(student) {
     clone.querySelector("#nickname").textContent = student.nickName;
   }
   clone.querySelector(".hide_popup").addEventListener("click", setPopup);
-  clone.querySelector(".btPrefect").addEventListener("click", setPrefect);
+  // clone.querySelector(".btPrefect").addEventListener("click", setPrefect);
 
-  if (student.prefect == false) {
+  // ! partially stole code from Lucas
+
+  if (student.prefect === false) {
     clone.querySelector("#prefect").innerHTML = "No";
   } else {
     clone.querySelector("#prefect").innerHTML = "Yes";
   }
-  // ! stolen code from Emma
 
-  // ! end of stolen code from Emma
+  clone.querySelector(".btPrefect").addEventListener("click", addPrefect);
+  clone.querySelector(".btExpell").addEventListener("click", expellStudent);
+
+  function addPrefect() {
+    student.prefect = !student.prefect;
+    if (student.prefect) {
+      document.querySelector(`#index${student.index}  #prefect `).textContent =
+        "Yes";
+    } else {
+      document.querySelector(`#index${student.index}  #prefect `).textContent =
+        "No";
+    }
+  }
+  // if (student.expelled == true) {
+  //   // expelledArray.push(student);
+  //   removeExpelled2(student);
+  // }
+  function expellStudent() {
+    // i add the expelled aprameter so that i can keep track of whether it's expelled
+    student.expelled = true;
+    expelledArray.push(student);
+    console.log(expelledArray);
+    console.log(filteredList);
+    removeExpelled(student);
+  }
+
+  function removeExpelled(student) {
+    delete filteredList[student.index - 1];
+    console.log(filteredList);
+    displayList(filteredList);
+  }
+
+  // ! end of stolen code from Lucas
   // ?adding id to a template
   clone.querySelector(".template").setAttribute("id", `index${student.index}`);
 
@@ -216,6 +260,8 @@ function displayStudents(student) {
     .querySelector(".hide_popup")
     .setAttribute("id", `index${student.index}`);
   clone.querySelector(".btPrefect").setAttribute("id", `index${student.index}`);
+  clone.querySelector(".btExpell").setAttribute("id", `index${student.index}`);
+  clone.querySelector(".btSquad").setAttribute("id", `index${student.index}`);
 
   clone.querySelector(
     ".student_picture2"
@@ -230,24 +276,8 @@ function displayStudents(student) {
   //     // append clone to list
   document.querySelector(".general_students").appendChild(clone);
   //   });
-  function setPrefect() {
-    student.prefect != student.prefect;
-    console.log(student.prefect);
 
-    if (student.prefect == false) {
-      console.log("hi");
-      console.log(student.prefect);
-
-      document.querySelector(`#index${student.index}  #prefect `).textContent =
-        "No";
-    } else {
-      console.log("ho");
-      console.log(student.prefect);
-
-      document.querySelector(`#index${student.index}  #prefect `).textContent =
-        "Yes";
-    }
-  }
+  // ? previous prefect function
 }
 
 function setPopup(event) {
@@ -257,3 +287,25 @@ function setPopup(event) {
   // let testIndex = filteredList;
   // console.log(testIndex);
 }
+
+// function expel() {
+//   let expelledStudent = allStudents.find(hasID);
+
+//   function hasID(object) {
+//       if (object.studentId === foundStudent.studentId) {
+//           return object.studentId;
+//       }
+//   }
+//   addExpelled(expelledStudent);
+// }
+
+// function addExpelled(student) {
+//   expelledStudents.push(student);
+//   removeExpelled(student);
+// }
+
+// function removeExpelled(student) {
+//   let removeMe = student.studentId - 1;
+//   allStudents.splice(removeMe, 1);
+//   displayList(allStudents);
+// }
