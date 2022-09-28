@@ -506,7 +506,7 @@ function displayStudents(student) {
 
   clone.querySelector(
     ".student_picture2"
-  ).src = `imgStudents/${student.imageName}`;
+  ).src = `/imgStudents/${student.imageName}`;
 
   // special treatment for Hubert
   if (student.firstName == "Hubert") {
