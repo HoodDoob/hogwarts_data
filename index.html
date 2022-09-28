@@ -17,7 +17,15 @@
       </div>
       <div id="header_text">Student Data <br />Base System</div>
     </header>
+    <div id="student_counter">
+      <div id="counter_hg">Hogwarts: </div>
+      <div id="counter_sl">Slytherin: </div>
 
+      <div id="counter_hf">Hufflepuff: </div>
+      <div id="counter_rv">Ravenclaw: </div>
+      <div id="counter_studying">Students: </div>
+      <div id="counter_ex">Expelled: </div>
+    </div>
     <div id="top_search">
       <select name="Filter" placeholder="Filter" id="filter">
         <option value="all">All</option>
@@ -28,7 +36,8 @@
         <option value="Hufflepuff">Hufflepuff</option>
         <option value="Ravenclaw">Ravenclaw</option>
         <option value="prefect">Prefect</option>
-        <!-- <option value="expelled">expelled</option> -->
+        <option value="squad">Inquirisintotial squad</option>
+      
       </select>
       <div id="search_sort">
         <select name="Sort" id="sort">
@@ -38,7 +47,7 @@
           <option value="gender">Gender</option>
         </select>
         <div class="" id="sort_arrow" data-sort-direction=>↑</div>
-        <!-- <div class="" id="arrowDown">↑</div> -->
+      
       </div>
 
       <input
@@ -47,28 +56,32 @@
         name="search_bar"
         id="search_bar"
       />
-      <button id="show_expelled">Show expelled</div>
+      <button id="show_expelled">Show expelled</button>
+
     </div>
     <div class="general_students"></div>
     <!-- template start -->
     <template id="template_template">
       <div class="template">
+   
         <div class="popup hidden">
           <div class="popup_background" id="popup_data">
             <div id="popup_wrapper1">
               <div id="popup_left">
+                <!-- <div class="student_house">House</div>
+                <div class="student_smol2" id="house">Slytherin</div> -->
                 <div class="student_house">House</div>
                 <div class="student_smol2" id="house">Slytherin</div>
                 <div class="student_blood">Blood Status</div>
                 <div class="student_smol2" id="blood">0 Rh+</div>
               </div>
-              <div>
+              <div class="popup_right">
                 <div class="student_prefect">Prefect</div>
-                <div class="student_smol2" id="prefect">Ye</div>
-                <div class="student_squad">Inquisitorial Squad</div>
-                <div class="student_smol2" id="squad">Ye</div>
-                <div class="student_expelled">Expelled</div>
-                <div class="student_smol2" id="expelled">Nay</div>
+                <div class="student_smol2" id="prefect">No</div>
+                <div class="student_squad">Squad</div>
+                <div class="student_smol2" id="squad">No</div>
+                <!-- <div class="student_expelled">Expelled</div>
+                <div class="student_smol2" id="expelled">Nay</div> -->
               </div>
             </div>
             <div id="popup_buttons">
@@ -86,7 +99,7 @@
               src="imgStudents/brocklehurst_m.png"
             />
           </div>
-          <button class="hide_popup">Toggle hidden</button>
+          <button class="hide_popup">Show more</button>
         </div>
         <div class="template_data">
           <div class="student_name">Name</div>
@@ -100,6 +113,7 @@
       </div>
     </template>
     <!-- template end -->
+    <audio id="music" src="funnyMusic.mp3"></audio>
   </body>
   <script src="script.js"></script>
   <!-- <script>
