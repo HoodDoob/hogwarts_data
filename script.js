@@ -123,9 +123,14 @@ function prepareObject(jsonObject) {
     imageName = `${studentLastName.toLowerCase()}_${studentName.toLowerCase()}.png`;
   } else if (studentLastName.includes("-")) {
     imageName = "fletchley_j.png";
+  } else if (studentLastName == "Leanne") {
+    imageName = `cock.png`;
   } else {
-    imageName = `${studentLastName.toLowerCase()}_${studentName[0]}.png`;
+    let firstLetter = studentName[0];
+    console.log(firstLetter);
+    imageName = `${studentLastName.toLowerCase()}_${firstLetter.toLowerCase()}.png`;
   }
+
   // !here the blood status will be added
 
   if (bloodJSON.half.includes(studentLastName)) {
@@ -506,7 +511,7 @@ function displayStudents(student) {
 
   clone.querySelector(
     ".student_picture2"
-  ).src = `/imgStudents/${student.imageName}`;
+  ).src = `imgStudents/${student.imageName}`;
 
   // special treatment for Hubert
   if (student.firstName == "Hubert") {
